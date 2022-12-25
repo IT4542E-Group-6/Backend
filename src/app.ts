@@ -23,7 +23,7 @@ import * as http from 'http';
 import * as socketio from 'socket.io';
 import { redisClient } from './config/redis-client';
 
-// import { AuthController } from './auth/auth.controller';
+import { AuthController } from './auth/auth.controller';
 // import { UserController } from './user/user.controller';
 // import { GeoController } from './geo/geo.controller';
 // import { CommercialProductController } from './commercial_product/commercial_product.controller';
@@ -106,7 +106,7 @@ function bootstrap() {
     },
     controllers: [
       // UserController,
-      // AuthController,
+      AuthController,
       // GeoController,
       // CommercialProductController,
       // OrderController,
