@@ -41,66 +41,7 @@ class Mailer {
     const option = {
       from: `"Candle In The Wind Shop" <${Mailer.user}>`,
       to: receiver,
-      subject: 'Reset Account Password',
-      html: htmlToSend,
-    };
-    await transporter.sendMail(option);
-  }
-
-  public static async registerConfirmation(
-    receiver: string,
-    name: string,
-    active_token: string,
-  ) {
-    const filePath = `${process.env.HTML_FILES_ROOT}/registerTemplate.html`;
-    const source = readFileSync(filePath, 'utf-8').toString();
-    const template = handlebars.compile(source);
-    const replacements = {
-      user_name: `${name}`,
-      user_email: `${receiver}`,
-      verify_token_site: active_token,
-    };
-    const htmlToSend = template(replacements);
-    const transporter = nodemailer.createTransport({
-      host: Mailer.host,
-      port: parseInt(Mailer.port, 10),
-      secure: false,
-      auth: {
-        user: Mailer.user,
-        pass: Mailer.password,
-      },
-    });
-    const option = {
-      from: `"Candle In The Wind Shop" <${Mailer.user}>`,
-      to: receiver,
-      subject: 'Activate Account',
-      html: htmlToSend,
-    };
-    await transporter.sendMail(option);
-  }
-
-  public static async verifySucceed(receiver: string, name: string) {
-    const filePath = `${process.env.HTML_FILES_ROOT}/activationConfirmTemplate.html`;
-    const source = readFileSync(filePath, 'utf-8').toString();
-    const template = handlebars.compile(source);
-    const replacements = {
-      user_name: `${name}`,
-      user_email: `${receiver}`,
-    };
-    const htmlToSend = template(replacements);
-    const transporter = nodemailer.createTransport({
-      host: Mailer.host,
-      port: parseInt(Mailer.port, 10),
-      secure: false,
-      auth: {
-        user: Mailer.user,
-        pass: Mailer.password,
-      },
-    });
-    const option = {
-      from: `"Candle In The Wind Shop" <${Mailer.user}>`,
-      to: receiver,
-      subject: 'Account Verification Successfully',
+      subject: 'Reset mật khẩu tài khoản',
       html: htmlToSend,
     };
     await transporter.sendMail(option);
