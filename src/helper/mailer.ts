@@ -5,11 +5,8 @@ import { readFileSync } from 'fs';
 import { Types } from 'mongoose';
 import { OrderModel } from '../order/order.model';
 import { getOrderEmail } from './htmlTemplateGenerators/htmlEmail.generator';
-import path from 'path';
 
 class Mailer {
-  private static baseUrl = `${path.resolve('mailTemplates')}`;
-
   private static readonly host = process.env.MAIL_HOST as string;
 
   private static readonly port = process.env.MAIL_PORT as string;
@@ -23,13 +20,13 @@ class Mailer {
     name: string,
     active_token: string,
   ) {
-    const filePath = `${this.baseUrl}/resetPasswordTemplate.html`;
+    const filePath = `${process.env.HTML_FILES_ROOT}/resetPasswordTemplate.html`;
     const source = readFileSync(filePath, 'utf-8').toString();
     const template = handlebars.compile(source);
     const replacements = {
       user_name: `${name}`,
       user_email: `${receiver}`,
-      verify_token_site: `${this.baseUrl}/account/forgot-password/verify/${active_token}`,
+      verify_token_site: `${process.env.WEBSITE_DOMAIN_PATH}/account/forgot-password/verify/${active_token}`,
     };
     const htmlToSend = template(replacements);
     const transporter = nodemailer.createTransport({
@@ -55,7 +52,7 @@ class Mailer {
     name: string,
     active_token: string,
   ) {
-    const filePath = `${this.baseUrl}/registerTemplate.html`;
+    const filePath = `${process.env.HTML_FILES_ROOT}/registerTemplate.html`;
     const source = readFileSync(filePath, 'utf-8').toString();
     const template = handlebars.compile(source);
     const replacements = {
@@ -83,7 +80,7 @@ class Mailer {
   }
 
   public static async verifySucceed(receiver: string, name: string) {
-    const filePath = `${this.baseUrl}/activationConfirmTemplate.html`;
+    const filePath = `${process.env.HTML_FILES_ROOT}/activationConfirmTemplate.html`;
     const source = readFileSync(filePath, 'utf-8').toString();
     const template = handlebars.compile(source);
     const replacements = {

@@ -27,3 +27,4 @@ node dist/app.js
 | ------------------------------- | ---------------- | ------------------------ |
 | `auth:${email}:${refreshToken}` | `${accessToken}` | Refresh token's duration |
 ## Note: This application supports JSON only!
+

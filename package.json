@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                                                                                              {
+{
   "name": "candleinthewind-admin-backend-v1",
   "author": "Khoi",
   "license": "UNLICENSED",
@@ -21,9 +21,9 @@
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "bull": "^3.23.0",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
-    "class-validator-jsonschema": "^3.1.0",
+    "class-transformer": "^0.3.1",
+    "class-validator": "^0.13.1",
+    "class-validator-jsonschema": "^2.1.1",
     "cors": "^2.8.5",
     "cron": "^1.8.2",
     "crypto-random-string": "^3.3.1",
