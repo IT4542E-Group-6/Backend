@@ -10,7 +10,6 @@ export class ScentCategoryRepository {
 
   async getScentCategoryBySlug(slug: string): Promise<string | null> {
     const category = await ScentCategoryModel.findOne({ slug }).lean();
-    // const category = await ScentCategoryModel.findOne({ slug }).lean();
     return category?._id;
   }
 }
