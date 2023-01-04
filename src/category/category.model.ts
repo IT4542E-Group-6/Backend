@@ -5,6 +5,9 @@ export class Category {
   name: string;
 
   @prop({ required: true })
+  slug: string;
+
+  @prop({ required: true })
   description: string;
 }
 

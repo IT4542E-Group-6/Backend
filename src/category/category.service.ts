@@ -6,5 +6,8 @@ export class CategoryService {
   async getAllCategories() {
     return this.categoryRepository.getAllCategories();
   }
-  
+
+  async getCategoryBySlug(slug: string): Promise<string | null> {
+    return this.categoryRepository.getCategoryBySlug(slug);
+  }
 }
