@@ -20,11 +20,24 @@ export class LoyalCustomerCreateOrderDto {
   shipping_address: OrderShippingAddress;
 
   @Expose()
+  @IsNotEmpty()
+  @IsString()
+  @MaxLength(50)
+  payment_method: string;
+
+  @Expose()
   @ValidateIf((o) => o.gifts === undefined || o.products)
   @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => OrderCommercialProduct)
   products: OrderCommercialProduct[];
+
+  @Expose()
+  @ValidateIf((o) => o.products === undefined || o.gifts)
+  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => OrderAppreciationProduct)
+  gifts: OrderAppreciationProduct[];
 
   @Expose()
   @IsNotEmpty()

@@ -3,7 +3,6 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
-  IsOptional,
   IsString,
   MaxLength,
   Min,
@@ -40,9 +39,4 @@ export class CreateOrderDto {
   @IsNumber()
   @Min(0)
   total_product_cost: number;
-
-  @Expose()
-  @IsNotEmpty()
-  @Min(0)
-  time_issue: Date;
 }

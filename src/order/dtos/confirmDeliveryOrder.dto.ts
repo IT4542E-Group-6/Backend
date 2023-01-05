@@ -25,9 +25,4 @@ export class ConfirmDeliveryOrderDto {
   @IsString()
   @MaxLength(35)
   shipping_code: string;
-
-  @Expose()
-  @IsNotEmpty()
-  @Min(0)
-  time_issue: Date;
 }
