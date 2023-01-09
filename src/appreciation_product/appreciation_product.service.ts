@@ -28,6 +28,16 @@ export class AppreciationProductService {
     return this.appreciationProductRepository.getProductDetailByID(Product_id);
   }
 
+  async updateCommercialProduct(
+    commercial_product_id: string,
+    updateProductDto: UpdateGiftDto,
+  ) {
+    return this.appreciationProductRepository.updateCommercialProduct(
+      commercial_product_id,
+      updateProductDto,
+    );
+  }
+
   async createProduct(createProductDto: CreateGiftDto) {
     return this.appreciationProductRepository.createProduct(createProductDto);
   }

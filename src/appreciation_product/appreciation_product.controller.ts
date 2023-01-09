@@ -94,4 +94,24 @@ export class AppreciationProductController {
     }
   }
 
+  @Authorized(['admin', 'staff'])
+  @OpenAPI({
+    security: [{ BearerAuth: [] }],
+    description: 'update Products information details',
+  })
+  @Put('/:product_id', { transformResponse: false })
+  async updateProduct(
+    @Body() updateGiftDto: UpdateGiftDto,
+    @Param('product_id') commercial_product_id: string,
+  ) {
+    try {
+      return this.appreciationProductService.updateCommercialProduct(
+        commercial_product_id,
+        updateGiftDto,
+      );
+    } catch (e) {
+      if (e instanceof NotFoundError) throw new NotFoundError(e.message);
+      throw new BadRequestError(e.message);
+    }
+  }
 }
