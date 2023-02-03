@@ -26,12 +26,12 @@ import { redisClient } from './config/redis-client';
 import { AuthController } from './auth/auth.controller';
 // import { UserController } from './user/user.controller';
 // import { GeoController } from './geo/geo.controller';
-// import { CommercialProductController } from './commercial_product/commercial_product.controller';
 // import { OrderController } from './order/order.controller';
+// import { UserModel } from './user/user.model';
 // import { CategoryController } from './category/category.controller';
+// import { CustomerController } from './customer/customer.controller';
 // import { DiscountCodeController } from './discount_code/discount_code.controller';
-// import { CustomerModel } from './customer/customer.model';
-// import { ShippingAddressController } from './shipping_address/shipping_address.controller';
+// import { CommercialProductController } from './commercial_product/commercial_product.controller';
 // import { AppreciationProductController } from './appreciation_product/appreciation_product.controller';
 
 async function authorizationChecker(action: Action, roles: string[]) {
@@ -64,7 +64,7 @@ async function currentUserChecker(action: Action) {
   const curUser: any = jwt.decode(token);
   try {
     // TODO: in prod: add filter: del_flag:false,status: 1
-    // const user = await CustomerModel.findOne({ email: curUser.email }).lean();
+    // const user = await UserModel.findOne({ email: curUser.email }).lean();
     // return user;
     return null;
   } catch (e) {
@@ -109,11 +109,11 @@ function bootstrap() {
       AuthController,
       // GeoController,
       // CommercialProductController,
+      // AppreciationProductController,
       // OrderController,
       // CategoryController,
+      // CustomerController,
       // DiscountCodeController,
-      // ShippingAddressController,
-      // AppreciationProductController,
     ],
     authorizationChecker,
     currentUserChecker,

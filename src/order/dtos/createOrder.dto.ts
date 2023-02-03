@@ -3,13 +3,22 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
+<<<<<<< HEAD
+=======
+  IsOptional,
+>>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
   IsString,
   MaxLength,
   Min,
   ValidateNested,
 } from 'class-validator';
+<<<<<<< HEAD
 import { OrderCommercialProduct } from '../schemas/order-commercial-product';
 import { OrderShippingAddress } from '../schemas/shipping-address';
+=======
+import { OrderProduct } from '../order-product';
+import { OrderShippingAddress } from '../shipping-address';
+>>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
 
 export class CreateOrderDto {
   @Expose()
@@ -31,8 +40,13 @@ export class CreateOrderDto {
   @Expose()
   @IsNotEmpty()
   @ValidateNested({ each: true })
+<<<<<<< HEAD
   @Type(() => OrderCommercialProduct)
   products: OrderCommercialProduct[];
+=======
+  @Type(() => OrderProduct)
+  products: OrderProduct[];
+>>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
 
   @Expose()
   @IsNotEmpty()
