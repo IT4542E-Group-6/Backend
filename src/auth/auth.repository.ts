@@ -4,7 +4,11 @@ import ms from 'ms';
 import { BadRequestError } from 'routing-controllers';
 import { redisClient } from '../config/redis-client';
 import { LoginDto } from './dtos/login.dto';
+<<<<<<< HEAD
+import { CustomerDocument, CustomerModel } from '../customer/customer.model';
+=======
 import { UserDocument, UserModel } from '../user/user.model';
+>>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
 
 export class AuthRepository {
   private comparePassword(password: string, hashedPassword: string): boolean {
@@ -41,8 +45,13 @@ export class AuthRepository {
     redisClient.del(`auth:${email}:${refreshToken}`);
   }
 
+<<<<<<< HEAD
+  async getUserPassword(email: string): Promise<CustomerDocument | null> {
+    return CustomerModel.findOne({ email })
+=======
   async getUserPassword(email: string): Promise<UserDocument | null> {
     return UserModel.findOne({ email })
+>>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
       .select({
         _id: 0,
         email: 1,

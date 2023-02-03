@@ -1,31 +1,19 @@
 import { Expose, Type } from 'class-transformer';
 import {
-  IsEmail,
   IsNotEmpty,
   IsNumber,
-<<<<<<< HEAD
-=======
   IsOptional,
->>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
   IsString,
   MaxLength,
   Min,
+  ValidateIf,
   ValidateNested,
 } from 'class-validator';
-<<<<<<< HEAD
+import { OrderAppreciationProduct } from '../schemas/order-appreciation-product';
 import { OrderCommercialProduct } from '../schemas/order-commercial-product';
 import { OrderShippingAddress } from '../schemas/shipping-address';
-=======
-import { OrderProduct } from '../order-product';
-import { OrderShippingAddress } from '../shipping-address';
->>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
 
-export class CreateOrderDto {
-  @Expose()
-  @IsNotEmpty()
-  @IsEmail()
-  customer_email: string;
-
+export class LoyalCustomerCreateOrderDto {
   @Expose()
   @IsNotEmpty()
   @Type(() => OrderShippingAddress)
@@ -38,19 +26,27 @@ export class CreateOrderDto {
   payment_method: string;
 
   @Expose()
+  @ValidateIf((o) => o.gifts === undefined || o.products)
   @IsNotEmpty()
   @ValidateNested({ each: true })
-<<<<<<< HEAD
   @Type(() => OrderCommercialProduct)
   products: OrderCommercialProduct[];
-=======
-  @Type(() => OrderProduct)
-  products: OrderProduct[];
->>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
+
+  @Expose()
+  @ValidateIf((o) => o.products === undefined || o.gifts)
+  @IsNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => OrderAppreciationProduct)
+  gifts: OrderAppreciationProduct[];
 
   @Expose()
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
   total_product_cost: number;
+
+  @Expose()
+  @IsOptional()
+  @IsString()
+  discount_code: string;
 }

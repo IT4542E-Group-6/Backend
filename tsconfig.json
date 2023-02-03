@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
+<<<<<<< HEAD
+    "target": "ES2019",
+    "lib": ["ES2019"],
+=======
     "target": "ES2018",
     "lib": ["ES2018"],
+>>>>>>> 7b45f9011dd146657d2945c3bcb3917d59125c68
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,

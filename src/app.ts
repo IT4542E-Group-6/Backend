@@ -106,7 +106,7 @@ function bootstrap() {
     },
     controllers: [
       // UserController,
-      // AuthController,
+      AuthController,
       // GeoController,
       // CommercialProductController,
       // AppreciationProductController,
