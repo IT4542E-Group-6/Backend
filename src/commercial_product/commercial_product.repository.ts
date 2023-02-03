@@ -22,7 +22,7 @@ export class ProductRepository {
     let aggregation = CommercialProductModel.aggregate().match({});
     if (status) {
       aggregation = aggregation.match({
-        status: { $in: status.split(',').map((x) => x) },
+        status: { $in: status.split(',').map((x) => +x) },
       });
     }
     if (category_slug) {
