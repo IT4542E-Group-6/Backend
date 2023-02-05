@@ -14,7 +14,7 @@ export class PostRepository {
   ) {
     return PostModel.find(query)
       .select(selectQuery)
-      .skip(page * limit)
+      .skip((page - 1) * limit)
       .limit(limit)
       .populate(populateOptions)
       .sort(sortQuery)
