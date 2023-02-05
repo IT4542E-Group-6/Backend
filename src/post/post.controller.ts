@@ -164,6 +164,28 @@ export class PostController {
     security: [{ BearerAuth: [] }],
     description: 'Modify official post',
   })
+  async updateOfficialPost(
+    @CurrentUser({ required: true }) user: UserDocument,
+    @Param('post_id') post_id: string,
+    @Body() updatePostDto: UpdatePostDto,
+  ) {
+    try {
+      if (
+        !(await this.postService.updateOfficialPost(
+          user._id,
+          post_id,
+          updatePostDto,
+        ))
+      )
+        throw new NotFoundError('Cannot update : Not found !');
+      return {
+        message: 'Updated Sucessfully !',
+      };
+    } catch (e) {
+      if (e instanceof NotFoundError) throw new NotFoundError(e.message);
+      throw new BadRequestError(e.message);
+    }
+  }
 
   @Delete('/:post_id', { transformResponse: false })
   @Authorized(['admin', 'customer'])
@@ -194,6 +216,22 @@ export class PostController {
     security: [{ BearerAuth: [] }],
     description: 'Lock post comment',
   })
+  async lockPostComment(
+    @CurrentUser({ required: true }) user: UserDocument,
+    @Param('post_id') post_id: string,
+  ) {
+    try {
+      if (!(await this.postService.lockPostComment(user._id, post_id))) {
+        throw new NotFoundError('Cannot lock : Not found !');
+      }
+      return {
+        message: 'Post Locked Sucessfully !',
+      };
+    } catch (e) {
+      if (e instanceof NotFoundError) throw new NotFoundError(e.message);
+      throw new BadRequestError(e.message);
+    }
+  }
 
   @Patch('/review/:post_id', { transformResponse: false })
   @Authorized(['admin'])
@@ -201,4 +239,25 @@ export class PostController {
     security: [{ BearerAuth: [] }],
     description: 'Admin approve/deny a post',
   })
+  async approveAndDenyPost(
+    @Param('post_id') post_id: string,
+    @Body({ required: true }) updatePostStatusDto: UpdatePostStatusDto,
+  ) {
+    try {
+      if (
+        !(await this.postService.approveAndDenyPost(
+          post_id,
+          updatePostStatusDto.status,
+        ))
+      ) {
+        throw new NotFoundError('Cannot approve : Not found !');
+      }
+      return {
+        message: 'Update Sucessfully !',
+      };
+    } catch (e) {
+      if (e instanceof NotFoundError) throw new NotFoundError(e.message);
+      throw new BadRequestError(e.message);
+    }
+  }
 }

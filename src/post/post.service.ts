@@ -151,6 +151,30 @@ export class PostService {
     return this.postRepository.createPost(admin_id, createPostDto);
   }
 
+  async createAnnouncementPost(
+    admin_id: string,
+    createAnnouncementPostDto: CreateAnnouncementPostDto,
+  ) {
+    Object.assign(createAnnouncementPostDto, {
+      status: PostStatus.ACTIVE,
+      type: PostType.ADMIN_ONLY,
+    });
+    return this.postRepository.createPost(admin_id, createAnnouncementPostDto);
+  }
+
+  async updateOfficialPost(
+    author_id: string,
+    post_id: string,
+    updatePostDto: UpdatePostDto,
+  ) {
+    const query = {
+      _id: post_id,
+      user_id: author_id,
+      status: { $nin: [PostStatus.DELETED, PostStatus.LOCKED] },
+    };
+    return this.postRepository.updatePost(query, updatePostDto);
+  }
+
   async deletePost(admin_id: string, post_id: string) {
     const query = {
       _id: post_id,
@@ -158,6 +182,25 @@ export class PostService {
       status: { $not: { $eq: PostStatus.DELETED } },
     };
     const updateOptions = { status: PostStatus.DELETED };
+    return this.postRepository.updatePost(query, updateOptions);
+  }
+
+  async lockPostComment(admin_id: string, post_id: string) {
+    const query = {
+      _id: post_id,
+      user_id: admin_id,
+      status: { $not: { $eq: PostStatus.DELETED } },
+    };
+    const updateOptions = { status: PostStatus.LOCKED };
+    return this.postRepository.updatePost(query, updateOptions);
+  }
+
+  async approveAndDenyPost(post_id: string, new_status: number) {
+    const query = {
+      _id: post_id,
+      status: { $not: { $eq: PostStatus.DELETED } },
+    };
+    const updateOptions = { status: new_status };
     return this.postRepository.updatePost(query, updateOptions);
   }
 }
